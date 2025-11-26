@@ -1,35 +1,30 @@
-def find_max_number():
-    """Поиск наибольшего числа среди введенных"""
-    print("=== ПОИСК НАИБОЛЬШЕГО ЧИСЛА ===")
-    print("Вводите числа (больше 0). Для завершения введите 0.\n")
+print("=== ПОИСК НАИБОЛЬШЕГО ЧИСЛА ===")
+print("Вводите числа (больше 0)")
+print("Для завершения введите 0")
+print("-" * 30)
     
-    numbers = []
+max_number = 0  # Начальное значение максимума
     
-    try:
-        while True:
-            try:
-                num = float(input("Введите число: "))
-                
-                if num == 0:
-                    break
-                elif num < 0:
-                    print("Число должно быть больше 0!")
-                    continue
-                
-                numbers.append(num)
-                
-            except ValueError:
-                print("Ошибка: введите корректное число!")
-        
-        if numbers:
-            max_number = max(numbers)
-            print(f"\n Введено чисел: {len(numbers)}")
-            print(f" Наибольшее число: {max_number}")
-            print(f" Все числа: {numbers}")
-        else:
-            print("\n Вы не ввели ни одного числа!")
+while True:
+        try:
+            number = float(input("Введите число: "))
             
-    except KeyboardInterrupt:
-        print("\n Программа прервана")
-
-# find_max_number()
+            if number == 0:
+                break  # Выход из цикла при вводе 0
+            
+            if number < 0:
+                print("Число должно быть больше 0!")
+                continue
+            
+            if number > max_number:
+                max_number = number
+                print(f"Новый максимум: {max_number}")
+                
+        except ValueError:
+            print("Ошибка! Введите корректное число.")
+    
+    # Вывод результата
+if max_number > 0:
+        print(f"\nНаибольшее число среди введенных: {max_number}")
+else:
+        print("\nНе было введено ни одного положительного числа.")
