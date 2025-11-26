@@ -1,51 +1,67 @@
-def guess_number_game():
-    """Программа угадывает число пользователя"""
-    print("=== УГАДАЙ ЧИСЛО ===")
-    print("Загадайте число, а программа попробует его угадать!\n")
+import random
+
+def guess_number():
+    print("=== ИГРА 'УГАДАЙ ЧИСЛО' ===")
+    print("Загадайте число в уме, а я попробую его угадать!")
+    print("Отвечайте на вопросы: 'да', 'нет', 'равно'")
+    print("-" * 40)
     
-    try:
-        # Пользователь вводит интервал
-        low = int(input("Введите нижнюю границу интервала: "))
-        high = int(input("Введите верхнюю границу интервала: "))
+    # Запрос интервала у пользователя
+    while True:
+        try:
+            min_num = int(input("Введите начало интервала: "))
+            max_num = int(input("Введите конец интервала: "))
+            if min_num >= max_num:
+                print("Начало интервала должно быть меньше конца!")
+                continue
+            break
+        except ValueError:
+            print("Пожалуйста, вводите целые числа!")
+    
+    attempts = 0
+    print(f"\nЯ буду угадывать число от {min_num} до {max_num}")
+    print("Отвечайте: 'да', 'нет' или 'равно'\n")
+    
+    while True:
+        attempts += 1
         
-        if low >= high:
-            print("Ошибка: нижняя граница должна быть меньше верхней!")
+        # Метод дихотомии - берем середину интервала
+        guess = (min_num + max_num) // 2
+        
+        # Если интервал сузился до одного числа
+        if min_num == max_num:
+            print(f"Ваше число: {min_num}!")
+            break
+        
+        print(f"Попытка {attempts}: Число равно {guess}?")
+        answer = input("Ваш ответ: ").lower().strip()
+        
+        if answer in ['равно', 'да', 'yes', 'y', 'correct']:
+            print(f"Ура! Я угадал число {guess} за {attempts} попыток!")
+            break
+        elif answer in ['меньше', 'нет', 'no', 'n', 'less']:
+            print(f"Число меньше {guess}?")
+            confirm = input("(да/нет): ").lower().strip()
+            if confirm in ['да', 'yes', 'y']:
+                max_num = guess - 1
+            else:
+                print("Тогда число больше?")
+                confirm2 = input("(да/нет): ").lower().strip()
+                if confirm2 in ['да', 'yes', 'y']:
+                    min_num = guess + 1
+                else:
+                    print("Пожалуйста, будьте внимательнее в ответах!")
+                    attempts -= 1  # Не засчитываем эту попытку
+        elif answer in ['больше', 'more']:
+            min_num = guess + 1
+        else:
+            print("Не понимаю ответ. Используйте: 'да', 'нет', 'равно'")
+            attempts -= 1  # Не засчитываем эту попытку
+        
+        # Проверка на корректность интервала
+        if min_num > max_num:
+            print("Вы где-то ошиблись в ответах! Давайте начнем заново.")
             return
         
-        attempts = 0
-        print(f"\n Загадайте число от {low} до {high}...")
-        input("Нажмите Enter когда будете готовы...")
-        
-        while low <= high:
-            attempts += 1
-            # Метод дихотомии - берем середину интервала
-            guess = (low + high) // 2
-            
-            print(f"\n Попытка #{attempts}")
-            print(f"Число равно {guess}?")
-            
-            answer = input("Введите 'да', 'больше' или 'меньше': ").lower().strip()
-            
-            if answer == 'да':
-                print(f"Я угадал ваше число {guess} за {attempts} попыток!")
-                break
-            elif answer == 'меньше':
-                high = guess - 1
-                print(f"Значит число меньше {guess}")
-            elif answer == 'больше':
-                low = guess + 1
-                print(f"Значит число больше {guess}")
-            else:
-                print("Пожалуйста, введите 'да', 'больше' или 'меньше'")
-                attempts -= 1  # Не считаем некорректную попытку
-            
-            if low > high:
-                print("Вы ошиблись с ответами...")
-                break
-                
-    except ValueError:
-        print("Ошибка: введите целые числа!")
-    except KeyboardInterrupt:
-        print("\n Игра прервана")
-
-# guess_number_game()
+        print(f"Текущий интервал: от {min_num} до {max_num}")
+        print("-" * 30)
