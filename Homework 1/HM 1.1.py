@@ -1,19 +1,32 @@
-def infinite_sum():
-    """Бесконечный цикл для сложения двух чисел"""
-    print("=== БЕСКОНЕЧНЫЙ КАЛЬКУЛЯТОР СУММЫ ===")
-    print("Для выхода нажмите Ctrl+C\n")
-    
-    try:
-        while True:
-            try:
-                num1 = float(input("Введите первое число: "))
-                num2 = float(input("Введите второе число: "))
-                result = num1 + num2
-                print(f"Сумма: {num1} + {num2} = {result}\n")
-                print("-" * 30)
-            except ValueError:
-                print("Ошибка: введите корректные числа!\n")
-    except KeyboardInterrupt:
-        print("\n Программа завершена!")
+print("Программа для сложения двух чисел")
+print("Для выхода введите 'выход' или нажмите Ctrl+C\n")
 
-# infinite_sum()
+while True:
+    try:
+        # Ввод первого числа
+        input1 = input("Введите первое число (или 'выход' для завершения): ")
+        if input1.lower() in ['выход', 'exit', 'quit', 'q']:
+            print("Программа завершена.")
+            break
+        
+        num1 = float(input1)
+        
+        # Ввод второго числа
+        input2 = input("Введите второе число: ")
+        if input2.lower() in ['выход', 'exit', 'quit', 'q']:
+            print("Программа завершена.")
+            break
+            
+        num2 = float(input2)
+        
+        # Вычисление и вывод суммы
+        result = num1 + num2
+        print(f"Результат: {num1} + {num2} = {result}")
+        print("=" * 50)
+        
+    except ValueError:
+        print("Ошибка! Пожалуйста, вводите только числа.")
+        print("=" * 50)
+    except KeyboardInterrupt:
+        print("\nПрограмма завершена пользователем.")
+        break
