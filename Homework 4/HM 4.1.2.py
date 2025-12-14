@@ -1,4 +1,4 @@
-# main_part1.py
+# HM 4.1.2.py
 import matrix_operations as mo
 import random
 
